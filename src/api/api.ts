@@ -3,6 +3,7 @@ import { Member } from "@/types/Member";
 import { req } from "@/api/axios";
 import { Token } from "@/types/Token";
 import { MemberForm } from "@/types/MemberForm";
+import { Filters } from "@/types/Filters";
 
 export const login = async (data: LoginForm) => {
     try {
@@ -63,4 +64,21 @@ export const removeMember = async (id: number) => {
         headers: { Authorization: `Token ${token}` },
     });
     return results.data;
+};
+
+export const searchMember = async (filters: Filters) => {
+    const token = localStorage.getItem("ebd-login");
+    const results = await req.get(
+        `/members/search?${
+            filters.birthMonth ? `birthMonth=${filters.birthMonth}&` : ""
+        }${filters.name ? `name=${filters.name}&` : ""}${
+            filters.sex ? `sex=${filters.sex}&` : ""
+        }${filters.hasChild ? `hasChild=${filters.hasChild}&` : ""}${
+            filters.isTeacher ? `isTeacher=${filters.isTeacher}` : ""
+        }`,
+        {
+            headers: { Authorization: `Token ${token}` },
+        }
+    );
+    return results.data.members as Member[];
 };
