@@ -1,6 +1,8 @@
 import axios from "axios";
 
 export const req = axios.create({
-    baseURL: "http://localhost:4000",
-    // baseURL: "https://ebd-api.onrender.com:443",
+    baseURL: process.env.NEXT_PUBLIC_BASE_API,
+    headers: {
+        "Content-Type": "application/json",
+    },
 });
