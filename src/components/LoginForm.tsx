@@ -71,8 +71,12 @@ const LoginForm = () => {
                 </div>
                 <button
                     type="submit"
-                    className="p-2 bg-zinc-700 text-xl text-white rounded-md hover:bg-amber-500 duration-200 ease-linear">
-                    Entrar
+                    className="p-2 bg-zinc-700 text-xl text-white rounded-md hover:bg-amber-500 duration-200 ease-linear flex items-center justify-center"
+                    disabled={login.isPending}>
+                    {(login.isPending || login.isSuccess) && (
+                        <div className="w-6 h-6 rounded-full border-t-4 border-l-4 border-white animate-spin"></div>
+                    )}
+                    {(login.isIdle || login.isError) && "Entrar"}
                 </button>
             </form>
             {login.error && <ToastContainer />}
