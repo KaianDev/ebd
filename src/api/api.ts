@@ -1,11 +1,11 @@
-import { LoginForm } from "@/types/LoginForm";
+import { LoginFormType } from "@/types/LoginForm";
 import { Member } from "@/types/Member";
 import { req } from "@/api/axios";
 import { Token } from "@/types/Token";
 import { MemberForm } from "@/types/MemberForm";
 import { Filters } from "@/types/Filters";
 
-export const login = async (data: LoginForm) => {
+export const login = async (data: LoginFormType) => {
     try {
         const results = await req.post("/login", data);
         return results.data as Token;
